@@ -1,5 +1,5 @@
 'use strict';
-const blackBeans = document.querySelector('.beans');
+/* const blackBeans = document.querySelector('.beans');
 if (!blackBeans) throw new Error('There are no black beans here.');
 const broccoli = document.querySelector('.broccoli');
 if (!broccoli) throw new Error('There is no broccoli here.');
@@ -114,3 +114,4 @@ redPepper.addEventListener('click', async () => {
   await imageClick(redPepper, 'red_pepper');
   await pullMeals();
 });
+*/
