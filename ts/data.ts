@@ -127,4 +127,4 @@ fetchTestMeal('53000');
 */
 
 const foo: string = 'hello';
-console.log(foo);
+console.log('foo', foo);
