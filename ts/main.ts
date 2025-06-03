@@ -1,17 +1,29 @@
-/* const blackBeans = document.querySelector('.beans');
+interface Ingredient {
+  strMeal: string;
+  strMealThumb: string;
+  idMeal: string;
+}
+
+const blackBeans = document.querySelector('.beans') as HTMLElement;
 if (!blackBeans) throw new Error('There are no black beans here.');
-const broccoli = document.querySelector('.broccoli');
+const broccoli = document.querySelector('.broccoli') as HTMLElement;
 if (!broccoli) throw new Error('There is no broccoli here.');
-const potatoes = document.querySelector('.potatoes');
+const potatoes = document.querySelector('.potatoes') as HTMLElement;
 if (!potatoes) throw new Error('There are no potatoes here.');
-const redPepper = document.querySelector('.pepper');
+const redPepper = document.querySelector('.pepper') as HTMLElement;
 if (!redPepper) throw new Error('There are no potatoes here.');
-const blockade = [];
-const $recipeTitle = document.querySelector('.recipe-title');
+const blockade: any[] = [];
+const $recipeTitle = document.querySelector(
+  '.recipe-title',
+) as HTMLHeadingElement;
 if (!$recipeTitle) throw new Error('recipeTitle query failed');
-const $recipeIngredients = document.querySelector('.recipe-buttons');
+const $recipeIngredients = document.querySelector(
+  '.recipe-ingredients',
+) as HTMLParagraphElement;
 if (!$recipeIngredients) throw new Error('recipeIngredients query failed');
-const $recipeInstructions = document.querySelector('.recipe-task');
+const $recipeInstructions = document.querySelector(
+  '.recipe-task',
+) as HTMLParagraphElement;
 if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
 let mealTextSource = {
   strMeal: '',
@@ -57,7 +69,7 @@ let mealTextSource = {
   strIngredient20: '',
   strInstructions: '',
 };
-async function imageClick(div, id) {
+async function imageClick(div: HTMLElement, id: string): Promise<void> {
   if (div.classList.contains('img-contain')) {
     if (blockade.length >= 4) return;
     div.classList.replace('img-contain', 'img-clicked');
@@ -69,11 +81,11 @@ async function imageClick(div, id) {
     blockade.splice(elim, 2);
   }
 }
-async function pullMeals() {
+async function pullMeals(): Promise<void> {
   if (blockade.length === 4) {
-    const pair1 = blockade[1].meals;
-    const pair2 = blockade[3].meals;
-    const pairID = [];
+    const pair1: Ingredient[] = blockade[1].meals;
+    const pair2: Ingredient[] = blockade[3].meals;
+    const pairID: string[] = [];
     for (let i = 0; i < pair1.length; i++) {
       pairID.push(pair1[i].idMeal);
     }
@@ -81,7 +93,7 @@ async function pullMeals() {
       pairID.push(pair2[i].idMeal);
     }
     pairID.sort();
-    const rando = [];
+    const rando: string[] = [];
     if (pairID[15] === '53067') rando.push('53067');
     for (let i = 0; i < pairID.length - 1; i++) {
       if (pairID[i] === pairID[i + 1]) rando.push(pairID[i]);
@@ -113,4 +125,3 @@ redPepper.addEventListener('click', async () => {
   await imageClick(redPepper, 'red_pepper');
   await pullMeals();
 });
-*/
