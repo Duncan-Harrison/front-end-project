@@ -1,7 +1,7 @@
 'use strict';
 /* exported data */
 /* exported data */
-/* async function fetchbroccoli() {
+async function fetchbroccoli() {
   try {
     const response = await fetch(
       'https://www.themealdb.com/api/json/v1/1/filter.php?i=broccoli',
@@ -125,6 +125,5 @@ fetchpotatoes();
 fetchredPepper();
 fetchblackBeans();
 fetchTestMeal('53000');
-*/
 const foo = 'hello';
-console.log(foo);
+console.log('foo', foo);

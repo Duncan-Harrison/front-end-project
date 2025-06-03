@@ -1,5 +1,5 @@
 'use strict';
-/* const blackBeans = document.querySelector('.beans');
+const blackBeans = document.querySelector('.beans');
 if (!blackBeans) throw new Error('There are no black beans here.');
 const broccoli = document.querySelector('.broccoli');
 if (!broccoli) throw new Error('There is no broccoli here.');
@@ -10,7 +10,7 @@ if (!redPepper) throw new Error('There are no potatoes here.');
 const blockade = [];
 const $recipeTitle = document.querySelector('.recipe-title');
 if (!$recipeTitle) throw new Error('recipeTitle query failed');
-const $recipeIngredients = document.querySelector('.recipe-buttons');
+const $recipeIngredients = document.querySelector('.recipe-ingredients');
 if (!$recipeIngredients) throw new Error('recipeIngredients query failed');
 const $recipeInstructions = document.querySelector('.recipe-task');
 if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
@@ -114,4 +114,3 @@ redPepper.addEventListener('click', async () => {
   await imageClick(redPepper, 'red_pepper');
   await pullMeals();
 });
-*/
