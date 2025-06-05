@@ -1,6 +1,25 @@
 'use strict';
 /* exported data */
 /* exported data */
+const dataKey = 'front-end-project-data';
+const data = readData();
+function readData() {
+  let data;
+  const localData = localStorage.getItem(dataKey);
+  if (localData) {
+    data = JSON.parse(localData);
+  } else {
+    data = {
+      entries: [],
+      nextEntryId: 1,
+    };
+  }
+  return data;
+}
+function writeData() {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem(dataKey, dataJSON);
+}
 async function fetchbroccoli() {
   try {
     const response = await fetch(

@@ -22,6 +22,10 @@ main {
   margin: 0 10px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .recipe-title,
 .recipe-ingredients {
   width: 30vw;
@@ -36,14 +40,14 @@ main {
 
 .img-contain {
   aspect-ratio: 1/1;
-  width: 15vw;
+  width: 11vw;
   background-color: white;
   margin: 10px;
 }
 
 .img-clicked {
   aspect-ratio: 1/1;
-  width: 15vw;
+  width: 11vw;
   background-color: darkgray;
   margin: 10px;
 }
@@ -78,10 +82,26 @@ main {
   margin: 10px;
 }
 
+.recipe-feed {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80vw;
+}
+
+.item {
+  width: calc(100% / 3);
+  display: flex;
+  flex-direction: column;
+}
+
 @media screen and (width <= 680px) {
   .recipe-left {
     display: flex;
     flex-direction: row;
+  }
+
+  .item {
+    width: calc(100% / 2);
   }
 }
 
@@ -89,5 +109,9 @@ main {
   .recipe-left {
     display: flex;
     flex-direction: column;
+  }
+
+  .item {
+    width: calc(100% / 1);
   }
 }
