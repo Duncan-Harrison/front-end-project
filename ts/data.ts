@@ -46,6 +46,38 @@ interface Meal {
   strInstructions: string;
 }
 
+interface Re {
+  title: string;
+  ingredients: string;
+  ingredientImage: string[];
+  instructions: string;
+  EntryId: number;
+}
+
+interface Data {
+  entries: Re[];
+  nextEntryId: number;
+}
+
+const dataKey = 'front-end-project-data';
+
+const data = readData();
+if (!data) throw new Error('readData() failure');
+
+function readData(): Data {
+  let data: Data;
+  const localData = localStorage.getItem(dataKey);
+  if (localData) {
+    data = JSON.parse(localData) as Data;
+  } else {
+    data = {
+      entries: [],
+      nextEntryId: 1,
+    };
+  }
+  return data;
+}
+
 async function fetchbroccoli(): Promise<void> {
   try {
     const response = await fetch(
@@ -170,6 +202,3 @@ fetchpotatoes();
 fetchredPepper();
 fetchblackBeans();
 fetchTestMeal('53000');
-
-const foo: string = 'hello';
-console.log('foo', foo);

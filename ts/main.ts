@@ -4,6 +4,11 @@ interface Ingredient {
   idMeal: string;
 }
 
+function writeData(): void {
+  const dataJSON = JSON.stringify(data);
+  localStorage.setItem(dataKey, dataJSON);
+}
+
 const blackBeans = document.querySelector('.beans') as HTMLElement;
 if (!blackBeans) throw new Error('There are no black beans here.');
 const broccoli = document.querySelector('.broccoli') as HTMLElement;
@@ -25,6 +30,10 @@ const $recipeInstructions = document.querySelector(
   '.recipe-task',
 ) as HTMLParagraphElement;
 if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
+
+const $saveButton = document.querySelector('.save') as HTMLButtonElement;
+if (!$saveButton) throw new Error('$saveButton query failed');
+
 let mealTextSource = {
   strMeal: '',
   strMeasure1: '',
@@ -69,6 +78,21 @@ let mealTextSource = {
   strIngredient20: '',
   strInstructions: '',
 };
+
+function showButton(): void {
+  if ($saveButton.classList.contains('hidden')) {
+    $saveButton.classList.replace('hidden', 'seen');
+  } else {
+    $saveButton.classList.replace('seen', 'hidden');
+  }
+}
+
+function clearMeals(): void {
+  $recipeTitle.innerText = '';
+  $recipeIngredients.innerText = '';
+  $recipeInstructions.innerText = '';
+}
+
 async function imageClick(div: HTMLElement, id: string): Promise<void> {
   if (div.classList.contains('img-contain')) {
     if (blockade.length >= 4) return;
@@ -79,6 +103,10 @@ async function imageClick(div: HTMLElement, id: string): Promise<void> {
     div.classList.replace('img-clicked', 'img-contain');
     const elim = blockade.indexOf(div.classList[1]);
     blockade.splice(elim, 2);
+    if ($saveButton.classList.contains('seen')) {
+      clearMeals();
+      showButton();
+    }
   }
 }
 async function pullMeals(): Promise<void> {
@@ -107,6 +135,7 @@ async function pullMeals(): Promise<void> {
     $recipeTitle.innerText = mealTextSource.strMeal;
     $recipeIngredients.innerText = `${mealTextSource.strMeasure1} ${mealTextSource.strIngredient1}, ${mealTextSource.strMeasure2} ${mealTextSource.strIngredient2}, ${mealTextSource.strMeasure3} ${mealTextSource.strIngredient3}, ${mealTextSource.strMeasure4} ${mealTextSource.strIngredient4}, ${mealTextSource.strMeasure5} ${mealTextSource.strIngredient5}, ${mealTextSource.strMeasure6} ${mealTextSource.strIngredient6}, ${mealTextSource.strMeasure7} ${mealTextSource.strIngredient7}, ${mealTextSource.strMeasure8} ${mealTextSource.strIngredient8}, ${mealTextSource.strMeasure9} ${mealTextSource.strIngredient9}, ${mealTextSource.strMeasure10} ${mealTextSource.strIngredient10}, ${mealTextSource.strMeasure11} ${mealTextSource.strIngredient11}, ${mealTextSource.strMeasure12} ${mealTextSource.strIngredient12}, ${mealTextSource.strMeasure13} ${mealTextSource.strIngredient13}, ${mealTextSource.strMeasure14} ${mealTextSource.strIngredient14}, ${mealTextSource.strMeasure15} ${mealTextSource.strIngredient15}, ${mealTextSource.strMeasure16} ${mealTextSource.strIngredient17}, ${mealTextSource.strMeasure18} ${mealTextSource.strIngredient18}, ${mealTextSource.strMeasure19} ${mealTextSource.strIngredient19}, ${mealTextSource.strMeasure20} ${mealTextSource.strIngredient20}`;
     $recipeInstructions.innerText = mealTextSource.strInstructions;
+    showButton();
   }
 }
 blackBeans.addEventListener('click', async () => {
@@ -124,4 +153,18 @@ potatoes.addEventListener('click', async () => {
 redPepper.addEventListener('click', async () => {
   await imageClick(redPepper, 'red_pepper');
   await pullMeals();
+});
+
+$saveButton.addEventListener('click', () => {
+  const entry: Re = {
+    title: $recipeTitle.innerText,
+    ingredients: $recipeIngredients.innerText,
+    ingredientImage: [],
+    instructions: $recipeInstructions.innerText,
+    EntryId: data.nextEntryId,
+  };
+  data.entries.push(entry);
+  writeData();
+  showButton();
+  clearMeals();
 });
