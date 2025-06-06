@@ -94,6 +94,18 @@ main {
   flex-direction: column;
 }
 
+.work {
+  background-color: #0edbf2;
+  color: white;
+  padding: 5px;
+}
+
+.full {
+  background-color: #056874;
+  color: grey;
+  padding: 5px;
+}
+
 @media screen and (width <= 680px) {
   .recipe-left {
     display: flex;
