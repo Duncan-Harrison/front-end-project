@@ -64,6 +64,27 @@ const dataKey = 'front-end-project-data';
 const data = readData();
 if (!data) throw new Error('readData() failure');
 
+const $recipe1 = document.querySelector('.recipe-1') as HTMLDivElement;
+if (!$recipe1) throw new Error('$recipe1 query failed');
+const $recipe2 = document.querySelector('.recipe-2') as HTMLDivElement;
+if (!$recipe2) throw new Error('$recipe2 query failed');
+const $recipe3 = document.querySelector('.recipe-3') as HTMLDivElement;
+if (!$recipe3) throw new Error('$recipe3 query failed');
+const $recipe4 = document.querySelector('.recipe-4') as HTMLDivElement;
+if (!$recipe4) throw new Error('$recipe4 query failed');
+const $recipe5 = document.querySelector('.recipe-5') as HTMLDivElement;
+if (!$recipe5) throw new Error('$recipe5 query failed');
+const $recipe6 = document.querySelector('.recipe-6') as HTMLDivElement;
+if (!$recipe6) throw new Error('$recipe6 query failed');
+const $recipe7 = document.querySelector('.recipe-7') as HTMLDivElement;
+if (!$recipe7) throw new Error('$recipe7 query failed');
+const $recipe8 = document.querySelector('.recipe-8') as HTMLDivElement;
+if (!$recipe8) throw new Error('$recipe8 query failed');
+const $recipe9 = document.querySelector('.recipe-9') as HTMLDivElement;
+if (!$recipe9) throw new Error('$recipe1 query failed');
+const $recipe10 = document.querySelector('.recipe-10') as HTMLDivElement;
+if (!$recipe10) throw new Error('$recipe10 query failed');
+
 function readData(): Data {
   let data: Data;
   const localData = localStorage.getItem(dataKey);
@@ -77,6 +98,29 @@ function readData(): Data {
   }
   return data;
 }
+
+function flush(ri: HTMLDivElement, nu: number): HTMLDivElement {
+  ri.children[0].innerHTML = data.entries[nu].title;
+  ri.children[2].innerHTML = data.entries[nu].ingredients;
+  ri.children[3].innerHTML = data.entries[nu].instructions;
+  return ri;
+}
+
+function fillFeed(): void {
+  console.log('Hello');
+  if (data.entries.length >= 1) flush($recipe1, 0);
+  if (data.entries.length >= 2) flush($recipe2, 1);
+  if (data.entries.length >= 3) flush($recipe3, 2);
+  if (data.entries.length >= 4) flush($recipe4, 3);
+  if (data.entries.length >= 5) flush($recipe5, 4);
+  if (data.entries.length >= 6) flush($recipe6, 5);
+  if (data.entries.length >= 7) flush($recipe7, 6);
+  if (data.entries.length >= 8) flush($recipe8, 7);
+  if (data.entries.length >= 9) flush($recipe9, 8);
+  if (data.entries.length >= 10) flush($recipe10, 9);
+}
+
+fillFeed();
 
 async function fetchbroccoli(): Promise<void> {
   try {

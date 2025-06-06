@@ -87,6 +87,14 @@ function showButton(): void {
   }
 }
 
+function fillButton(): void {
+  if (data.entries.length >= 10) {
+    $saveButton.classList.replace('work', 'full');
+  } else if (data.entries.length < 10) {
+    $saveButton.classList.replace('full', 'work');
+  }
+}
+
 function clearMeals(): void {
   $recipeTitle.innerText = '';
   $recipeIngredients.innerText = '';
@@ -99,6 +107,7 @@ async function imageClick(div: HTMLElement, id: string): Promise<void> {
     div.classList.replace('img-contain', 'img-clicked');
     const food = await fetchIngredient(id);
     blockade.push(div.classList[1], food);
+    fillButton();
   } else if (div.classList.contains('img-clicked')) {
     div.classList.replace('img-clicked', 'img-contain');
     const elim = blockade.indexOf(div.classList[1]);
@@ -136,6 +145,7 @@ async function pullMeals(): Promise<void> {
     $recipeIngredients.innerText = `${mealTextSource.strMeasure1} ${mealTextSource.strIngredient1}, ${mealTextSource.strMeasure2} ${mealTextSource.strIngredient2}, ${mealTextSource.strMeasure3} ${mealTextSource.strIngredient3}, ${mealTextSource.strMeasure4} ${mealTextSource.strIngredient4}, ${mealTextSource.strMeasure5} ${mealTextSource.strIngredient5}, ${mealTextSource.strMeasure6} ${mealTextSource.strIngredient6}, ${mealTextSource.strMeasure7} ${mealTextSource.strIngredient7}, ${mealTextSource.strMeasure8} ${mealTextSource.strIngredient8}, ${mealTextSource.strMeasure9} ${mealTextSource.strIngredient9}, ${mealTextSource.strMeasure10} ${mealTextSource.strIngredient10}, ${mealTextSource.strMeasure11} ${mealTextSource.strIngredient11}, ${mealTextSource.strMeasure12} ${mealTextSource.strIngredient12}, ${mealTextSource.strMeasure13} ${mealTextSource.strIngredient13}, ${mealTextSource.strMeasure14} ${mealTextSource.strIngredient14}, ${mealTextSource.strMeasure15} ${mealTextSource.strIngredient15}, ${mealTextSource.strMeasure16} ${mealTextSource.strIngredient17}, ${mealTextSource.strMeasure18} ${mealTextSource.strIngredient18}, ${mealTextSource.strMeasure19} ${mealTextSource.strIngredient19}, ${mealTextSource.strMeasure20} ${mealTextSource.strIngredient20}`;
     $recipeInstructions.innerText = mealTextSource.strInstructions;
     showButton();
+    fillButton();
   }
 }
 blackBeans.addEventListener('click', async () => {
@@ -155,7 +165,16 @@ redPepper.addEventListener('click', async () => {
   await pullMeals();
 });
 
+function scrubSelections(): void {
+  const arr: HTMLElement[] = [blackBeans, broccoli, potatoes, redPepper];
+  for (const h of arr) {
+    if (h.classList.contains('img-clicked'))
+      h.classList.replace('img-clicked', 'img-contain');
+  }
+}
+
 $saveButton.addEventListener('click', () => {
+  if ($saveButton.classList.contains('full')) return;
   const entry: Re = {
     title: $recipeTitle.innerText,
     ingredients: $recipeIngredients.innerText,
@@ -163,8 +182,14 @@ $saveButton.addEventListener('click', () => {
     instructions: $recipeInstructions.innerText,
     EntryId: data.nextEntryId,
   };
-  data.entries.push(entry);
-  writeData();
+  if (data.entries.length < 10) {
+    data.entries.push(entry);
+    writeData();
+  }
+  fillFeed();
+  fillButton();
   showButton();
   clearMeals();
+  blockade.length = 0;
+  scrubSelections();
 });
