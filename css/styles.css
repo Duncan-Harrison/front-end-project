@@ -40,14 +40,14 @@ main {
 
 .img-contain {
   aspect-ratio: 1/1;
-  width: 11vw;
+  width: 9vw;
   background-color: white;
   margin: 10px;
 }
 
 .img-clicked {
   aspect-ratio: 1/1;
-  width: 11vw;
+  width: 9vw;
   background-color: darkgray;
   margin: 10px;
 }
@@ -84,14 +84,27 @@ main {
 
 .recipe-feed {
   display: flex;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 90vw;
 }
 
 .item {
   width: calc(100% / 3);
   display: flex;
-  flex-direction: column;
+  flex-flow: column wrap;
+}
+
+.name,
+.photo,
+.all-ingredients,
+.rules {
+  width: 80%;
+  padding: 5px;
+}
+
+.name {
+  text-align: center;
 }
 
 .work {
