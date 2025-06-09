@@ -64,6 +64,12 @@ let mealTextSource = {
   strIngredient20: '',
   strInstructions: '',
 };
+const $recipeColumns = document.querySelector('.recipe-columns');
+if (!$recipeColumns) throw new Error('Cannot Find Recipe Columns');
+const $recipeFeed = document.querySelector('.recipe-feed');
+if (!$recipeFeed) throw new Error('Cannot Find Recipe Feed');
+const $newButton = document.querySelector('.new-recipe-button');
+if (!$newButton) throw new Error('We cannot create a new recipe at this time');
 function showButton() {
   if ($saveButton.classList.contains('hidden')) {
     $saveButton.classList.replace('hidden', 'seen');
@@ -71,6 +77,24 @@ function showButton() {
     $saveButton.classList.replace('seen', 'hidden');
   }
 }
+function showFeedOrMenu() {
+  if (
+    $recipeFeed.classList.contains('view') &&
+    $recipeColumns.classList.contains('hidden')
+  ) {
+    $recipeFeed.classList.replace('view', 'hidden');
+    $recipeColumns.classList.replace('hidden', 'view');
+  } else if (
+    $recipeColumns.classList.contains('view') &&
+    $recipeFeed.classList.contains('hidden')
+  ) {
+    $recipeColumns.classList.replace('view', 'hidden');
+    $recipeFeed.classList.replace('hidden', 'view');
+  }
+}
+$newButton.addEventListener('click', () => {
+  showFeedOrMenu();
+});
 function fillButton() {
   if (data.entries.length >= 10) {
     $saveButton.classList.replace('work', 'full');
@@ -172,4 +196,5 @@ $saveButton.addEventListener('click', () => {
   clearMeals();
   blockade.length = 0;
   scrubSelections();
+  showFeedOrMenu();
 });
