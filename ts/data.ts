@@ -107,7 +107,6 @@ function flush(ri: HTMLDivElement, nu: number): HTMLDivElement {
 }
 
 function fillFeed(): void {
-  console.log('Hello');
   if (data.entries.length >= 1) flush($recipe1, 0);
   if (data.entries.length >= 2) flush($recipe2, 1);
   if (data.entries.length >= 3) flush($recipe3, 2);

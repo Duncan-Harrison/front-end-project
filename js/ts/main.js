@@ -124,6 +124,44 @@ async function imageClick(div, id) {
     }
   }
 }
+function translateIngredients(foo) {
+  const ingred = [
+    `${foo.strMeasure1} ${foo.strIngredient1}`,
+    `${foo.strMeasure2} ${foo.strIngredient2}`,
+    `${foo.strMeasure3} ${foo.strIngredient3}`,
+    `${foo.strMeasure4} ${foo.strIngredient4}`,
+    `${foo.strMeasure5} ${foo.strIngredient5}`,
+    `${foo.strMeasure6} ${foo.strIngredient6}`,
+    `${foo.strMeasure7} ${foo.strIngredient7}`,
+    `${foo.strMeasure8} ${foo.strIngredient8}`,
+    `${foo.strMeasure9} ${foo.strIngredient9}`,
+    `${foo.strMeasure10} ${foo.strIngredient10}`,
+    `${foo.strMeasure11} ${foo.strIngredient11}`,
+    `${foo.strMeasure12} ${foo.strIngredient12}`,
+    `${foo.strMeasure13} ${foo.strIngredient13}`,
+    `${foo.strMeasure14} ${foo.strIngredient14}`,
+    `${foo.strMeasure15} ${foo.strIngredient15}`,
+    `${foo.strMeasure16} ${foo.strIngredient16}`,
+    `${foo.strMeasure17} ${foo.strIngredient17}`,
+    `${foo.strMeasure18} ${foo.strIngredient18}`,
+    `${foo.strMeasure19} ${foo.strIngredient19}`,
+    `${foo.strMeasure20} ${foo.strIngredient20}`,
+  ];
+  let instruct = '';
+  for (let i = 0; i < ingred.length; i++) {
+    if (
+      ingred[i] === ' null' ||
+      ingred[i] === '  ' ||
+      ingred[i] === '' ||
+      ingred[i] === ' '
+    ) {
+      break;
+    } else {
+      instruct += `${ingred[i]} \n`;
+    }
+  }
+  return instruct;
+}
 async function pullMeals() {
   if (blockade.length === 4) {
     const pair1 = blockade[1].meals;
@@ -136,6 +174,7 @@ async function pullMeals() {
       pairID.push(pair2[i].idMeal);
     }
     pairID.sort();
+    console.log(pairID);
     const rando = [];
     if (pairID[15] === '53067') rando.push('53067');
     for (let i = 0; i < pairID.length - 1; i++) {
@@ -148,7 +187,7 @@ async function pullMeals() {
     const recipeOfChoice = await fetchTestMeal(rando[recipeRandom]);
     mealTextSource = recipeOfChoice;
     $recipeTitle.innerText = mealTextSource.strMeal;
-    $recipeIngredients.innerText = `${mealTextSource.strMeasure1} ${mealTextSource.strIngredient1}, ${mealTextSource.strMeasure2} ${mealTextSource.strIngredient2}, ${mealTextSource.strMeasure3} ${mealTextSource.strIngredient3}, ${mealTextSource.strMeasure4} ${mealTextSource.strIngredient4}, ${mealTextSource.strMeasure5} ${mealTextSource.strIngredient5}, ${mealTextSource.strMeasure6} ${mealTextSource.strIngredient6}, ${mealTextSource.strMeasure7} ${mealTextSource.strIngredient7}, ${mealTextSource.strMeasure8} ${mealTextSource.strIngredient8}, ${mealTextSource.strMeasure9} ${mealTextSource.strIngredient9}, ${mealTextSource.strMeasure10} ${mealTextSource.strIngredient10}, ${mealTextSource.strMeasure11} ${mealTextSource.strIngredient11}, ${mealTextSource.strMeasure12} ${mealTextSource.strIngredient12}, ${mealTextSource.strMeasure13} ${mealTextSource.strIngredient13}, ${mealTextSource.strMeasure14} ${mealTextSource.strIngredient14}, ${mealTextSource.strMeasure15} ${mealTextSource.strIngredient15}, ${mealTextSource.strMeasure16} ${mealTextSource.strIngredient17}, ${mealTextSource.strMeasure18} ${mealTextSource.strIngredient18}, ${mealTextSource.strMeasure19} ${mealTextSource.strIngredient19}, ${mealTextSource.strMeasure20} ${mealTextSource.strIngredient20}`;
+    $recipeIngredients.innerText = translateIngredients(mealTextSource);
     $recipeInstructions.innerText = mealTextSource.strInstructions;
     showButton();
     fillButton();
