@@ -70,11 +70,11 @@ const $recipeFeed = document.querySelector('.recipe-feed');
 if (!$recipeFeed) throw new Error('Cannot Find Recipe Feed');
 const $newButton = document.querySelector('.new-recipe-button');
 if (!$newButton) throw new Error('We cannot create a new recipe at this time');
-function showButton() {
-  if ($saveButton.classList.contains('hidden')) {
-    $saveButton.classList.replace('hidden', 'seen');
+function showButton(bu) {
+  if (bu.classList.contains('hidden')) {
+    bu.classList.replace('hidden', 'seen');
   } else {
-    $saveButton.classList.replace('seen', 'hidden');
+    bu.classList.replace('seen', 'hidden');
   }
 }
 function showFeedOrMenu() {
@@ -93,13 +93,14 @@ function showFeedOrMenu() {
   }
 }
 $newButton.addEventListener('click', () => {
+  if ($newButton.classList.contains('full')) return;
   showFeedOrMenu();
 });
-function fillButton() {
+function fillButton(bu) {
   if (data.entries.length >= 10) {
-    $saveButton.classList.replace('work', 'full');
+    bu.classList.replace('work', 'full');
   } else if (data.entries.length < 10) {
-    $saveButton.classList.replace('full', 'work');
+    bu.classList.replace('full', 'work');
   }
 }
 function clearMeals() {
@@ -113,14 +114,14 @@ async function imageClick(div, id) {
     div.classList.replace('img-contain', 'img-clicked');
     const food = await fetchIngredient(id);
     blockade.push(div.classList[1], food);
-    fillButton();
+    fillButton($saveButton);
   } else if (div.classList.contains('img-clicked')) {
     div.classList.replace('img-clicked', 'img-contain');
     const elim = blockade.indexOf(div.classList[1]);
     blockade.splice(elim, 2);
     if ($saveButton.classList.contains('seen')) {
       clearMeals();
-      showButton();
+      showButton($saveButton);
     }
   }
 }
@@ -189,8 +190,8 @@ async function pullMeals() {
     $recipeTitle.innerText = mealTextSource.strMeal;
     $recipeIngredients.innerText = translateIngredients(mealTextSource);
     $recipeInstructions.innerText = mealTextSource.strInstructions;
-    showButton();
-    fillButton();
+    showButton($saveButton);
+    fillButton($saveButton);
   }
 }
 blackBeans.addEventListener('click', async () => {
@@ -230,8 +231,9 @@ $saveButton.addEventListener('click', () => {
     writeData();
   }
   fillFeed();
-  fillButton();
-  showButton();
+  fillButton($saveButton);
+  fillButton($newButton);
+  showButton($saveButton);
   clearMeals();
   blockade.length = 0;
   scrubSelections();

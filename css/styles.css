@@ -114,18 +114,18 @@ main {
   padding: 5px;
 }
 
-.full {
-  background-color: #056874;
-  color: grey;
-  padding: 5px;
-}
-
 .new-recipe-button {
   width: 70%;
   display: flex;
   justify-content: center;
   background-color: #0edbf2;
   color: white;
+  padding: 5px;
+}
+
+.full {
+  background-color: #056874;
+  color: grey;
   padding: 5px;
 }
 
@@ -143,6 +143,14 @@ main {
   .item {
     width: calc(100% / 2);
   }
+
+  .img-contain {
+    width: 16vw;
+  }
+
+  .img-clicked {
+    width: 16vw;
+  }
 }
 
 @media screen and (width <= 380px) {
@@ -153,5 +161,13 @@ main {
 
   .item {
     width: calc(100% / 1);
+  }
+
+  .img-contain {
+    width: 25vw;
+  }
+
+  .img-clicked {
+    width: 25vw;
   }
 }
