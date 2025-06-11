@@ -132,6 +132,18 @@ main {
 .start-button {
   display: flex;
   align-items: center;
+  margin: 5px;
+}
+
+.cancel {
+  background-color: #f2300e;
+  color: white;
+  padding: 5px;
+}
+
+.new-buttons {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 @media screen and (width <= 680px) {
@@ -145,11 +157,23 @@ main {
   }
 
   .img-contain {
-    width: 16vw;
+    width: 15vw;
   }
 
   .img-clicked {
-    width: 16vw;
+    width: 15vw;
+  }
+
+  .recipe-title,
+  .recipe-ingredients {
+    width: 35vw;
+    display: flex;
+    justify-content: center;
+  }
+
+  .recipe-task {
+    width: 35vw;
+    display: flex;
   }
 }
 
