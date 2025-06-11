@@ -33,6 +33,8 @@ if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
 
 const $saveButton = document.querySelector('.save') as HTMLButtonElement;
 if (!$saveButton) throw new Error('$saveButton query failed');
+const $cancelButton = document.querySelector('.cancel') as HTMLButtonElement;
+if (!$cancelButton) throw new Error('$cancelButton query failed');
 
 let mealTextSource = {
   strMeal: '',
@@ -104,12 +106,14 @@ function showFeedOrMenu(): void {
     $recipeColumns.classList.contains('hidden')
   ) {
     $recipeFeed.classList.replace('view', 'hidden');
+    $newButton.classList.replace('view', 'hidden');
     $recipeColumns.classList.replace('hidden', 'view');
   } else if (
     $recipeColumns.classList.contains('view') &&
     $recipeFeed.classList.contains('hidden')
   ) {
     $recipeColumns.classList.replace('view', 'hidden');
+    $newButton.classList.replace('hidden', 'view');
     $recipeFeed.classList.replace('hidden', 'view');
   }
 }
@@ -147,6 +151,7 @@ async function imageClick(div: HTMLElement, id: string): Promise<void> {
     if ($saveButton.classList.contains('seen')) {
       clearMeals();
       showButton($saveButton);
+      showButton($cancelButton);
     }
   }
 }
@@ -202,9 +207,16 @@ async function pullMeals(): Promise<void> {
       pairID.push(pair2[i].idMeal);
     }
     pairID.sort();
-    console.log(pairID);
     const rando: string[] = [];
-    if (pairID[15] === '53067') rando.push('53067');
+    if (pairID[15] === '53067')
+      rando.push('53067', '52830', '52941', '52867'); /* beans + pepper */
+    if (pairID[49] === '53078')
+      rando.push('53078', '52941', '52867'); /* beans + potatoes */
+    if (pairID[47] === '53048') rando.push('53048'); /* broccoli + potatoes */
+    if (pairID[20] === '53085' && pairID.length === 21)
+      rando.push('52772'); /* broccoli + pepper */
+    if (pairID[61] === '53070' && pairID[62] === '53070')
+      rando.push('53036', '52971', '52941', '52867'); /* potatoes + pepper */
     for (let i = 0; i < pairID.length - 1; i++) {
       if (pairID[i] === pairID[i + 1]) rando.push(pairID[i]);
     }
@@ -218,6 +230,7 @@ async function pullMeals(): Promise<void> {
     $recipeIngredients.innerText = translateIngredients(mealTextSource);
     $recipeInstructions.innerText = mealTextSource.strInstructions;
     showButton($saveButton);
+    showButton($cancelButton);
     fillButton($saveButton);
   }
 }
@@ -263,6 +276,16 @@ $saveButton.addEventListener('click', () => {
   fillButton($saveButton);
   fillButton($newButton);
   showButton($saveButton);
+  showButton($cancelButton);
+  clearMeals();
+  blockade.length = 0;
+  scrubSelections();
+  showFeedOrMenu();
+});
+
+$cancelButton.addEventListener('click', () => {
+  showButton($saveButton);
+  showButton($cancelButton);
   clearMeals();
   blockade.length = 0;
   scrubSelections();
