@@ -6,24 +6,44 @@ const data = readData();
 if (!data) throw new Error('readData() failure');
 const $recipe1 = document.querySelector('.recipe-1');
 if (!$recipe1) throw new Error('$recipe1 query failed');
+const $rone = document.querySelector('.r-one');
+if (!$rone) throw new Error('Dialog $rone not found');
 const $recipe2 = document.querySelector('.recipe-2');
 if (!$recipe2) throw new Error('$recipe2 query failed');
+const $rtwo = document.querySelector('.r-two');
+if (!$rtwo) throw new Error('Dialog $rtwo not found');
 const $recipe3 = document.querySelector('.recipe-3');
 if (!$recipe3) throw new Error('$recipe3 query failed');
+const $rthree = document.querySelector('.r-three');
+if (!$rthree) throw new Error('Dialog $rthree not found');
 const $recipe4 = document.querySelector('.recipe-4');
 if (!$recipe4) throw new Error('$recipe4 query failed');
+const $rfour = document.querySelector('.r-four');
+if (!$rfour) throw new Error('Dialog $rfour not found');
 const $recipe5 = document.querySelector('.recipe-5');
 if (!$recipe5) throw new Error('$recipe5 query failed');
+const $rfive = document.querySelector('.r-five');
+if (!$rfive) throw new Error('Dialog $rfive not found');
 const $recipe6 = document.querySelector('.recipe-6');
 if (!$recipe6) throw new Error('$recipe6 query failed');
+const $rsix = document.querySelector('.r-six');
+if (!$rsix) throw new Error('Dialog $rsix not found');
 const $recipe7 = document.querySelector('.recipe-7');
 if (!$recipe7) throw new Error('$recipe7 query failed');
+const $rseven = document.querySelector('.r-seven');
+if (!$rseven) throw new Error('Dialog $rseven not found');
 const $recipe8 = document.querySelector('.recipe-8');
 if (!$recipe8) throw new Error('$recipe8 query failed');
+const $reight = document.querySelector('.r-eight');
+if (!$reight) throw new Error('Dialog $reight not found');
 const $recipe9 = document.querySelector('.recipe-9');
 if (!$recipe9) throw new Error('$recipe1 query failed');
+const $rnine = document.querySelector('.r-nine');
+if (!$rnine) throw new Error('Dialog $rnine not found');
 const $recipe10 = document.querySelector('.recipe-10');
 if (!$recipe10) throw new Error('$recipe10 query failed');
+const $rten = document.querySelector('.r-ten');
+if (!$rten) throw new Error('Dialog $rten not found');
 function readData() {
   let data;
   const localData = localStorage.getItem(dataKey);
@@ -37,23 +57,26 @@ function readData() {
   }
   return data;
 }
-function flush(ri, nu) {
+function flush(ri, nu, mi) {
   ri.children[0].innerHTML = data.entries[nu].title;
+  mi.children[0].innerHTML = ri.children[0].innerHTML;
   ri.children[2].innerHTML = data.entries[nu].ingredients;
+  mi.children[1].innerHTML = ri.children[2].innerHTML;
   ri.children[3].innerHTML = data.entries[nu].instructions;
+  mi.children[2].innerHTML = ri.children[3].innerHTML;
   return ri;
 }
 function fillFeed() {
-  if (data.entries.length >= 1) flush($recipe1, 0);
-  if (data.entries.length >= 2) flush($recipe2, 1);
-  if (data.entries.length >= 3) flush($recipe3, 2);
-  if (data.entries.length >= 4) flush($recipe4, 3);
-  if (data.entries.length >= 5) flush($recipe5, 4);
-  if (data.entries.length >= 6) flush($recipe6, 5);
-  if (data.entries.length >= 7) flush($recipe7, 6);
-  if (data.entries.length >= 8) flush($recipe8, 7);
-  if (data.entries.length >= 9) flush($recipe9, 8);
-  if (data.entries.length >= 10) flush($recipe10, 9);
+  if (data.entries.length >= 1) flush($recipe1, 0, $rone);
+  if (data.entries.length >= 2) flush($recipe2, 1, $rtwo);
+  if (data.entries.length >= 3) flush($recipe3, 2, $rthree);
+  if (data.entries.length >= 4) flush($recipe4, 3, $rfour);
+  if (data.entries.length >= 5) flush($recipe5, 4, $rfive);
+  if (data.entries.length >= 6) flush($recipe6, 5, $rsix);
+  if (data.entries.length >= 7) flush($recipe7, 6, $rseven);
+  if (data.entries.length >= 8) flush($recipe8, 7, $reight);
+  if (data.entries.length >= 9) flush($recipe9, 8, $rnine);
+  if (data.entries.length >= 10) flush($recipe10, 9, $rten);
 }
 fillFeed();
 async function fetchbroccoli() {

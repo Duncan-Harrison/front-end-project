@@ -108,7 +108,17 @@ main {
   text-align: center;
 }
 
-.work {
+.work,
+.modal-close-1,
+.modal-close-2,
+.modal-close-3,
+.modal-close-4,
+.modal-close-5,
+.modal-close-6,
+.modal-close-7,
+.modal-close-8,
+.modal-close-9,
+.modal-close-10 {
   background-color: #0edbf2;
   color: white;
   padding: 5px;

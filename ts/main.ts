@@ -30,11 +30,51 @@ const $recipeInstructions = document.querySelector(
   '.recipe-task',
 ) as HTMLParagraphElement;
 if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
-
 const $saveButton = document.querySelector('.save') as HTMLButtonElement;
 if (!$saveButton) throw new Error('$saveButton query failed');
 const $cancelButton = document.querySelector('.cancel') as HTMLButtonElement;
 if (!$cancelButton) throw new Error('$cancelButton query failed');
+
+const $closeModal1 = document.querySelector(
+  '.modal-close-1',
+) as HTMLButtonElement;
+if (!$closeModal1) throw new Error('Could not find $closeModal1');
+const $closeModal2 = document.querySelector(
+  '.modal-close-2',
+) as HTMLButtonElement;
+if (!$closeModal2) throw new Error('Could not find $closeModal2');
+const $closeModal3 = document.querySelector(
+  '.modal-close-3',
+) as HTMLButtonElement;
+if (!$closeModal3) throw new Error('Could not find $closeModal3');
+const $closeModal4 = document.querySelector(
+  '.modal-close-4',
+) as HTMLButtonElement;
+if (!$closeModal4) throw new Error('Could not find $closeModal4');
+const $closeModal5 = document.querySelector(
+  '.modal-close-5',
+) as HTMLButtonElement;
+if (!$closeModal5) throw new Error('Could not find $closeModal5');
+const $closeModal6 = document.querySelector(
+  '.modal-close-6',
+) as HTMLButtonElement;
+if (!$closeModal6) throw new Error('Could not find $closeModal6');
+const $closeModal7 = document.querySelector(
+  '.modal-close-7',
+) as HTMLButtonElement;
+if (!$closeModal7) throw new Error('Could not find $closeModal7');
+const $closeModal8 = document.querySelector(
+  '.modal-close-8',
+) as HTMLButtonElement;
+if (!$closeModal8) throw new Error('Could not find $closeModal8');
+const $closeModal9 = document.querySelector(
+  '.modal-close-9',
+) as HTMLButtonElement;
+if (!$closeModal9) throw new Error('Could not find $closeModal9');
+const $closeModal10 = document.querySelector(
+  '.modal-close-10',
+) as HTMLButtonElement;
+if (!$closeModal10) throw new Error('Could not find $closeModal10');
 
 let mealTextSource = {
   strMeal: '',
@@ -290,4 +330,95 @@ $cancelButton.addEventListener('click', () => {
   blockade.length = 0;
   scrubSelections();
   showFeedOrMenu();
+});
+
+$recipe1.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rone.showModal();
+});
+$recipe1.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rone.showModal();
+});
+$recipe2.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rtwo.showModal();
+});
+$recipe2.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rtwo.showModal();
+});
+$recipe3.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rthree.showModal();
+});
+$recipe3.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rthree.showModal();
+});
+$recipe4.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rfour.showModal();
+});
+$recipe4.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rfour.showModal();
+});
+$recipe5.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rfive.showModal();
+});
+$recipe5.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rfive.showModal();
+});
+$recipe6.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rsix.showModal();
+});
+$recipe6.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rsix.showModal();
+});
+$recipe7.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rseven.showModal();
+});
+$recipe7.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rseven.showModal();
+});
+$recipe8.children[0].addEventListener('click', (event: Event) => {
+  if (event) $reight.showModal();
+});
+$recipe8.children[1].addEventListener('click', (event: Event) => {
+  if (event) $reight.showModal();
+});
+$recipe9.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rnine.showModal();
+});
+$recipe9.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rnine.showModal();
+});
+$recipe10.children[0].addEventListener('click', (event: Event) => {
+  if (event) $rten.showModal();
+});
+$recipe10.children[1].addEventListener('click', (event: Event) => {
+  if (event) $rten.showModal();
+});
+$closeModal1.addEventListener('click', (event: Event) => {
+  if (event) $rone.close();
+});
+$closeModal2.addEventListener('click', (event: Event) => {
+  if (event) $rtwo.close();
+});
+$closeModal3.addEventListener('click', (event: Event) => {
+  if (event) $rthree.close();
+});
+$closeModal4.addEventListener('click', (event: Event) => {
+  if (event) $rfour.close();
+});
+$closeModal5.addEventListener('click', (event: Event) => {
+  if (event) $rfive.close();
+});
+$closeModal6.addEventListener('click', (event: Event) => {
+  if (event) $rsix.close();
+});
+$closeModal7.addEventListener('click', (event: Event) => {
+  if (event) $rseven.close();
+});
+$closeModal8.addEventListener('click', (event: Event) => {
+  if (event) $reight.close();
+});
+$closeModal9.addEventListener('click', (event: Event) => {
+  if (event) $rnine.close();
+});
+$closeModal10.addEventListener('click', (event: Event) => {
+  if (event) $rten.close();
 });
