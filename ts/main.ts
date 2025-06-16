@@ -196,6 +196,20 @@ async function imageClick(div: HTMLElement, id: string): Promise<void> {
   }
 }
 
+function fetchPhoto(id: string): string {
+  if (id === 'beans') {
+    return 'https://www.themealdb.com/images/ingredients/black_beans.png';
+  } else if (id === 'broccoli') {
+    return 'https://www.themealdb.com/images/ingredients/broccoli.png';
+  } else if (id === 'potatoes') {
+    return 'https://www.themealdb.com/images/ingredients/potatoes.png';
+  } else if (id === 'pepper') {
+    return 'https://www.themealdb.com/images/ingredients/red_pepper.png';
+  } else {
+    return 'no results found';
+  }
+}
+
 function translateIngredients(foo: Meal): string {
   const ingred: string[] = [
     `${foo.strMeasure1} ${foo.strIngredient1}`,
@@ -301,10 +315,12 @@ function scrubSelections(): void {
 
 $saveButton.addEventListener('click', () => {
   if ($saveButton.classList.contains('full')) return;
+  const imgOne: string = fetchPhoto(blockade[0]);
+  const imgTwo: string = fetchPhoto(blockade[2]);
   const entry: Re = {
     title: $recipeTitle.innerText,
     ingredients: $recipeIngredients.innerText,
-    ingredientImage: [],
+    ingredientImage: [imgOne, imgTwo],
     instructions: $recipeInstructions.innerText,
     EntryId: data.nextEntryId,
   };

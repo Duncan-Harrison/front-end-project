@@ -150,6 +150,19 @@ async function imageClick(div, id) {
     }
   }
 }
+function fetchPhoto(id) {
+  if (id === 'beans') {
+    return 'https://www.themealdb.com/images/ingredients/black_beans.png';
+  } else if (id === 'broccoli') {
+    return 'https://www.themealdb.com/images/ingredients/broccoli.png';
+  } else if (id === 'potatoes') {
+    return 'https://www.themealdb.com/images/ingredients/potatoes.png';
+  } else if (id === 'pepper') {
+    return 'https://www.themealdb.com/images/ingredients/red_pepper.png';
+  } else {
+    return 'no results found';
+  }
+}
 function translateIngredients(foo) {
   const ingred = [
     `${foo.strMeasure1} ${foo.strIngredient1}`,
@@ -252,10 +265,12 @@ function scrubSelections() {
 }
 $saveButton.addEventListener('click', () => {
   if ($saveButton.classList.contains('full')) return;
+  const imgOne = fetchPhoto(blockade[0]);
+  const imgTwo = fetchPhoto(blockade[2]);
   const entry = {
     title: $recipeTitle.innerText,
     ingredients: $recipeIngredients.innerText,
-    ingredientImage: [],
+    ingredientImage: [imgOne, imgTwo],
     instructions: $recipeInstructions.innerText,
     EntryId: data.nextEntryId,
   };

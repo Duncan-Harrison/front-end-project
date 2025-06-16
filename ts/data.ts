@@ -266,6 +266,7 @@ async function fetchIngredient(id: string): Promise<void> {
     console.error('Error: ', error);
   }
 }
+
 fetchIngredient('potatoes');
 fetchbroccoli();
 fetchpotatoes();

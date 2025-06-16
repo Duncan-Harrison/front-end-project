@@ -26,6 +26,30 @@ main {
   margin: 0 10px;
 }
 
+dialog {
+  width: 80vw;
+}
+
+.modal-name {
+  display: block;
+  text-align: center;
+}
+
+.modal-ingredients,
+.modal-instructions {
+  display: block;
+  vertical-align: center;
+  text-align: left;
+  width: 80%;
+  margin: auto;
+  padding: 10px 0;
+}
+
+.modal-btn {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .recipe-title,
 .recipe-ingredients {
   width: 30vw;
