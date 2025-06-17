@@ -124,26 +124,52 @@ function flush(
   nu: number,
   mi: HTMLDialogElement,
 ): HTMLDivElement {
+  ri.classList.remove('hidden');
   ri.children[0].innerHTML = data.entries[nu].title;
-  mi.children[0].innerHTML = ri.children[0].innerHTML;
+  const imgOneAndTwo: NodeList = document.querySelectorAll(
+    `.recipe-${nu + 1} img`,
+  );
+  const imgOne: HTMLImageElement = imgOneAndTwo[0] as HTMLImageElement;
+  const imgTwo: HTMLImageElement = imgOneAndTwo[1] as HTMLImageElement;
+  imgOne.src = data.entries[nu].ingredientImage[0];
+  imgTwo.src = data.entries[nu].ingredientImage[1];
+  ri.children[1].classList.remove('hidden');
   ri.children[2].innerHTML = data.entries[nu].ingredients;
-  mi.children[1].innerHTML = ri.children[2].innerHTML;
   ri.children[3].innerHTML = data.entries[nu].instructions;
+  mi.children[0].innerHTML = ri.children[0].innerHTML;
+  mi.children[1].innerHTML = ri.children[2].innerHTML;
   mi.children[2].innerHTML = ri.children[3].innerHTML;
   return ri;
 }
 
 function fillFeed(): void {
-  if (data.entries.length >= 1) flush($recipe1, 0, $rone);
-  if (data.entries.length >= 2) flush($recipe2, 1, $rtwo);
-  if (data.entries.length >= 3) flush($recipe3, 2, $rthree);
-  if (data.entries.length >= 4) flush($recipe4, 3, $rfour);
-  if (data.entries.length >= 5) flush($recipe5, 4, $rfive);
-  if (data.entries.length >= 6) flush($recipe6, 5, $rsix);
-  if (data.entries.length >= 7) flush($recipe7, 6, $rseven);
-  if (data.entries.length >= 8) flush($recipe8, 7, $reight);
-  if (data.entries.length >= 9) flush($recipe9, 8, $rnine);
-  if (data.entries.length >= 10) flush($recipe10, 9, $rten);
+  const divList: HTMLDivElement[] = [
+    $recipe1,
+    $recipe2,
+    $recipe3,
+    $recipe4,
+    $recipe5,
+    $recipe6,
+    $recipe7,
+    $recipe8,
+    $recipe9,
+    $recipe10,
+  ];
+  const talkList: HTMLDialogElement[] = [
+    $rone,
+    $rtwo,
+    $rthree,
+    $rfour,
+    $rfive,
+    $rsix,
+    $rseven,
+    $reight,
+    $rnine,
+    $rten,
+  ];
+  for (let i = 0; i < data.entries.length; i++) {
+    flush(divList[i], i, talkList[i]);
+  }
 }
 
 fillFeed();

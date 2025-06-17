@@ -30,6 +30,10 @@ dialog {
   width: 80vw;
 }
 
+dialog::backdrop {
+  background-color: rgb(27, 224, 27);
+}
+
 .modal-name {
   display: block;
   text-align: center;
@@ -120,6 +124,20 @@ dialog {
   flex-flow: column wrap;
 }
 
+.recipe-1:hover,
+.recipe-2:hover,
+.recipe-3:hover,
+.recipe-4:hover,
+.recipe-5:hover,
+.recipe-6:hover,
+.recipe-7:hover,
+.recipe-8:hover,
+.recipe-9:hover,
+.recipe-10:hover {
+  background-color: #429e9d;
+  color: white;
+}
+
 .name,
 .photo,
 .all-ingredients,
@@ -130,6 +148,18 @@ dialog {
 
 .name {
   text-align: center;
+}
+
+.photo {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.second-container {
+  aspect-ratio: 1/1;
+  width: 5rem;
+  background-color: white;
+  margin: 10px;
 }
 
 .work,
