@@ -124,7 +124,7 @@ function flush(
   nu: number,
   mi: HTMLDialogElement,
 ): HTMLDivElement {
-  ri.classList.remove('hidden');
+  ri.classList.add('seen');
   ri.children[0].innerHTML = data.entries[nu].title;
   const imgOneAndTwo: NodeList = document.querySelectorAll(
     `.recipe-${nu + 1} img`,

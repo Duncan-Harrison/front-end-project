@@ -27,7 +27,7 @@ main {
 }
 
 dialog {
-  width: 80vw;
+  width: 60vw;
 }
 
 dialog::backdrop {
@@ -44,7 +44,7 @@ dialog::backdrop {
   display: block;
   vertical-align: center;
   text-align: left;
-  width: 80%;
+  width: 60%;
   margin: auto;
   padding: 10px 0;
 }
@@ -124,16 +124,7 @@ dialog::backdrop {
   flex-flow: column wrap;
 }
 
-.recipe-1:hover,
-.recipe-2:hover,
-.recipe-3:hover,
-.recipe-4:hover,
-.recipe-5:hover,
-.recipe-6:hover,
-.recipe-7:hover,
-.recipe-8:hover,
-.recipe-9:hover,
-.recipe-10:hover {
+.seen:hover {
   background-color: #429e9d;
   color: white;
 }

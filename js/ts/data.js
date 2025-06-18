@@ -58,7 +58,7 @@ function readData() {
   return data;
 }
 function flush(ri, nu, mi) {
-  ri.classList.remove('hidden');
+  ri.classList.add('seen');
   ri.children[0].innerHTML = data.entries[nu].title;
   const imgOneAndTwo = document.querySelectorAll(`.recipe-${nu + 1} img`);
   const imgOne = imgOneAndTwo[0];
