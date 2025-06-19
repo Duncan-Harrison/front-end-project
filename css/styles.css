@@ -122,6 +122,8 @@ dialog::backdrop {
   width: calc(100% / 3);
   display: flex;
   flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .seen:hover {
@@ -199,6 +201,38 @@ dialog::backdrop {
 .new-buttons {
   display: flex;
   justify-content: space-evenly;
+}
+
+.delete-1,
+.delete-2,
+.delete-3,
+.delete-4,
+.delete-5,
+.delete-6,
+.delete-7,
+.delete-8,
+.delete-9,
+.delete-10 {
+  width: 6vw;
+  margin: 5px;
+  background-color: #f2300e;
+  color: white;
+  align-content: center;
+}
+
+.modal-delete-1,
+.modal-delete-2,
+.modal-delete-3,
+.modal-delete-4,
+.modal-delete-5,
+.modal-delete-6,
+.modal-delete-7,
+.modal-delete-8,
+.modal-delete-9,
+.modal-delete-10 {
+  padding: 5px;
+  background-color: #f2300e;
+  color: white;
 }
 
 @media screen and (width <= 680px) {

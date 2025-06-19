@@ -105,6 +105,68 @@ if (!$recipe10) throw new Error('$recipe10 query failed');
 const $rten = document.querySelector('.r-ten') as HTMLDialogElement;
 if (!$rten) throw new Error('Dialog $rten not found');
 
+const $delete1 = document.querySelector('.delete-1') as HTMLButtonElement;
+if (!$delete1) throw new Error('Cannot delete the first recipe');
+const $delete2 = document.querySelector('.delete-2') as HTMLButtonElement;
+if (!$delete2) throw new Error('Cannot delete the second recipe');
+const $delete3 = document.querySelector('.delete-3') as HTMLButtonElement;
+if (!$delete3) throw new Error('Cannot delete the third recipe');
+const $delete4 = document.querySelector('.delete-4') as HTMLButtonElement;
+if (!$delete4) throw new Error('Cannot delete the fourth recipe');
+const $delete5 = document.querySelector('.delete-5') as HTMLButtonElement;
+if (!$delete5) throw new Error('Cannot delete the fifth recipe');
+const $delete6 = document.querySelector('.delete-6') as HTMLButtonElement;
+if (!$delete6) throw new Error('Cannot delete the sixth recipe');
+const $delete7 = document.querySelector('.delete-7') as HTMLButtonElement;
+if (!$delete7) throw new Error('Cannot delete the first recipe');
+const $delete8 = document.querySelector('.delete-8') as HTMLButtonElement;
+if (!$delete8) throw new Error('Cannot delete the first recipe');
+const $delete9 = document.querySelector('.delete-9') as HTMLButtonElement;
+if (!$delete9) throw new Error('Cannot delete the first recipe');
+const $delete10 = document.querySelector('.delete-10') as HTMLButtonElement;
+if (!$delete10) throw new Error('Cannot delete the first recipe');
+
+const $modalDelete1 = document.querySelector(
+  '.modal-delete-1',
+) as HTMLButtonElement;
+if (!$modalDelete1) throw new Error('Cannot delete the first recipe');
+const $modalDelete2 = document.querySelector(
+  '.modal-delete-2',
+) as HTMLButtonElement;
+if (!$modalDelete2) throw new Error('Cannot delete the second recipe');
+const $modalDelete3 = document.querySelector(
+  '.modal-delete-3',
+) as HTMLButtonElement;
+if (!$modalDelete3) throw new Error('Cannot delete the third recipe');
+const $modalDelete4 = document.querySelector(
+  '.modal-delete-4',
+) as HTMLButtonElement;
+if (!$modalDelete4) throw new Error('Cannot delete the fourth recipe');
+const $modalDelete5 = document.querySelector(
+  '.modal-delete-5',
+) as HTMLButtonElement;
+if (!$modalDelete5) throw new Error('Cannot delete the fifth recipe');
+const $modalDelete6 = document.querySelector(
+  '.modal-delete-6',
+) as HTMLButtonElement;
+if (!$modalDelete6) throw new Error('Cannot delete the sixth recipe');
+const $modalDelete7 = document.querySelector(
+  '.modal-delete-7',
+) as HTMLButtonElement;
+if (!$modalDelete7) throw new Error('Cannot delete the first recipe');
+const $modalDelete8 = document.querySelector(
+  '.modal-delete-8',
+) as HTMLButtonElement;
+if (!$modalDelete8) throw new Error('Cannot delete the first recipe');
+const $modalDelete9 = document.querySelector(
+  '.modal-delete-9',
+) as HTMLButtonElement;
+if (!$modalDelete9) throw new Error('Cannot delete the first recipe');
+const $modalDelete10 = document.querySelector(
+  '.modal-delete-10',
+) as HTMLButtonElement;
+if (!$modalDelete10) throw new Error('Cannot delete the first recipe');
+
 function readData(): Data {
   let data: Data;
   const localData = localStorage.getItem(dataKey);
@@ -123,8 +185,10 @@ function flush(
   ri: HTMLDivElement,
   nu: number,
   mi: HTMLDialogElement,
+  button: HTMLButtonElement,
 ): HTMLDivElement {
   ri.classList.add('seen');
+  button.classList.remove('hidden');
   ri.children[0].innerHTML = data.entries[nu].title;
   const imgOneAndTwo: NodeList = document.querySelectorAll(
     `.recipe-${nu + 1} img`,
@@ -167,8 +231,20 @@ function fillFeed(): void {
     $rnine,
     $rten,
   ];
+  const buttonList: HTMLButtonElement[] = [
+    $delete1,
+    $delete2,
+    $delete3,
+    $delete4,
+    $delete5,
+    $delete6,
+    $delete7,
+    $delete8,
+    $delete9,
+    $delete10,
+  ];
   for (let i = 0; i < data.entries.length; i++) {
-    flush(divList[i], i, talkList[i]);
+    flush(divList[i], i, talkList[i], buttonList[i]);
   }
 }
 
@@ -292,6 +368,115 @@ async function fetchIngredient(id: string): Promise<void> {
     console.error('Error: ', error);
   }
 }
+
+function deleteRecipe(number: number): void {
+  data.entries.splice(number, 1);
+  console.log(data.entries);
+  writeData();
+  console.log(data.entries.length);
+  fillFeed();
+  location.reload();
+}
+
+$delete1.addEventListener('click', () => {
+  deleteRecipe(0);
+  if (data.entries.length < 1) $delete1.classList.add('hidden');
+});
+
+$modalDelete1.addEventListener('click', () => {
+  deleteRecipe(0);
+  if (data.entries.length < 1) $delete1.classList.add('hidden');
+});
+
+$delete2.addEventListener('click', () => {
+  deleteRecipe(1);
+  if (data.entries.length < 2) $delete2.classList.add('hidden');
+});
+
+$modalDelete2.addEventListener('click', () => {
+  deleteRecipe(1);
+  if (data.entries.length < 2) $delete2.classList.add('hidden');
+});
+
+$delete3.addEventListener('click', () => {
+  deleteRecipe(2);
+  if (data.entries.length < 3) $delete3.classList.add('hidden');
+});
+
+$modalDelete3.addEventListener('click', () => {
+  deleteRecipe(2);
+  if (data.entries.length < 3) $delete3.classList.add('hidden');
+});
+
+$delete4.addEventListener('click', () => {
+  deleteRecipe(3);
+  if (data.entries.length < 4) $delete4.classList.add('hidden');
+});
+
+$modalDelete4.addEventListener('click', () => {
+  deleteRecipe(3);
+  if (data.entries.length < 4) $delete4.classList.add('hidden');
+});
+
+$delete5.addEventListener('click', () => {
+  deleteRecipe(4);
+  if (data.entries.length < 5) $delete5.classList.add('hidden');
+});
+
+$modalDelete5.addEventListener('click', () => {
+  deleteRecipe(4);
+  if (data.entries.length < 5) $delete5.classList.add('hidden');
+});
+
+$delete6.addEventListener('click', () => {
+  deleteRecipe(5);
+  if (data.entries.length < 6) $delete6.classList.add('hidden');
+});
+
+$modalDelete6.addEventListener('click', () => {
+  deleteRecipe(5);
+  if (data.entries.length < 6) $delete6.classList.add('hidden');
+});
+
+$delete7.addEventListener('click', () => {
+  deleteRecipe(6);
+  if (data.entries.length < 7) $delete7.classList.add('hidden');
+});
+
+$modalDelete7.addEventListener('click', () => {
+  deleteRecipe(6);
+  if (data.entries.length < 7) $delete7.classList.add('hidden');
+});
+
+$delete8.addEventListener('click', () => {
+  deleteRecipe(7);
+  if (data.entries.length < 8) $delete8.classList.add('hidden');
+});
+
+$modalDelete8.addEventListener('click', () => {
+  deleteRecipe(7);
+  if (data.entries.length < 8) $delete8.classList.add('hidden');
+});
+
+$delete9.addEventListener('click', () => {
+  deleteRecipe(8);
+  if (data.entries.length < 9) $delete9.classList.add('hidden');
+});
+
+$modalDelete9.addEventListener('click', () => {
+  deleteRecipe(8);
+  if (data.entries.length < 9) $delete9.classList.add('hidden');
+});
+
+$delete10.addEventListener('click', () => {
+  deleteRecipe(9);
+  if (data.entries.length < 10) $delete10.classList.add('hidden');
+});
+
+$modalDelete10.addEventListener('click', () => {
+  deleteRecipe(9);
+  if (data.entries.length < 10) $delete10.classList.add('hidden');
+});
 
 fetchIngredient('potatoes');
 fetchbroccoli();

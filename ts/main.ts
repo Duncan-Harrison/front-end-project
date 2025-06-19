@@ -438,3 +438,5 @@ $closeModal9.addEventListener('click', (event: Event) => {
 $closeModal10.addEventListener('click', (event: Event) => {
   if (event) $rten.close();
 });
+
+fillButton($newButton);
