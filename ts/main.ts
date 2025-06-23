@@ -30,6 +30,10 @@ const $recipeInstructions = document.querySelector(
   '.recipe-task',
 ) as HTMLParagraphElement;
 if (!$recipeInstructions) throw new Error('recipeInstructions query failed');
+const $recipeThumb = document.querySelector(
+  '.recipe-thumb',
+) as HTMLImageElement;
+if (!$recipeThumb) throw new Error('recipeThumb query failed');
 const $saveButton = document.querySelector('.save') as HTMLButtonElement;
 if (!$saveButton) throw new Error('$saveButton query failed');
 const $cancelButton = document.querySelector('.cancel') as HTMLButtonElement;
@@ -132,11 +136,11 @@ const $newButton = document.querySelector(
 ) as HTMLButtonElement;
 if (!$newButton) throw new Error('We cannot create a new recipe at this time');
 
-function showButton(bu: HTMLButtonElement): void {
-  if (bu.classList.contains('hidden')) {
-    bu.classList.replace('hidden', 'seen');
+function showButton(bttn: HTMLButtonElement): void {
+  if (bttn.classList.contains('hidden')) {
+    bttn.classList.replace('hidden', 'seen');
   } else {
-    bu.classList.replace('seen', 'hidden');
+    bttn.classList.replace('seen', 'hidden');
   }
 }
 
@@ -163,11 +167,11 @@ $newButton.addEventListener('click', () => {
   showFeedOrMenu();
 });
 
-function fillButton(bu: HTMLButtonElement): void {
+function fillButton(bttn: HTMLButtonElement): void {
   if (data.entries.length >= 10) {
-    bu.classList.replace('work', 'full');
+    bttn.classList.replace('work', 'full');
   } else if (data.entries.length < 10) {
-    bu.classList.replace('full', 'work');
+    bttn.classList.replace('full', 'work');
   }
 }
 
@@ -175,6 +179,7 @@ function clearMeals(): void {
   $recipeTitle.innerText = '';
   $recipeIngredients.innerText = '';
   $recipeInstructions.innerText = '';
+  $recipeThumb.src = '';
 }
 
 async function imageClick(div: HTMLElement, id: string): Promise<void> {
@@ -186,8 +191,8 @@ async function imageClick(div: HTMLElement, id: string): Promise<void> {
     fillButton($saveButton);
   } else if (div.classList.contains('img-clicked')) {
     div.classList.replace('img-clicked', 'img-contain');
-    const elim = blockade.indexOf(div.classList[1]);
-    blockade.splice(elim, 2);
+    const eliminate = blockade.indexOf(div.classList[1]);
+    blockade.splice(eliminate, 2);
     if ($saveButton.classList.contains('seen')) {
       clearMeals();
       showButton($saveButton);
@@ -207,6 +212,21 @@ function fetchPhoto(id: string): string {
     return 'https://www.themealdb.com/images/ingredients/red_pepper.png';
   } else {
     return 'no results found';
+  }
+}
+
+async function fetchMealPhoto(id: string): Promise<any> {
+  try {
+    const response = await fetch(
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
+    );
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+    const meal = await response.json();
+    const realMeal = meal.meals[0];
+    if (realMeal.strMealThumb) return realMeal.strMealThumb;
+  } catch (error) {
+    console.error('Error: ', error);
+    return 'noMeal';
   }
 }
 
@@ -262,15 +282,12 @@ async function pullMeals(): Promise<void> {
     }
     pairID.sort();
     const rando: string[] = [];
-    if (pairID[15] === '53067')
-      rando.push('53067', '52830', '52941', '52867'); /* beans + pepper */
-    if (pairID[49] === '53078')
-      rando.push('53078', '52941', '52867'); /* beans + potatoes */
-    if (pairID[47] === '53048') rando.push('53048'); /* broccoli + potatoes */
-    if (pairID[20] === '53085' && pairID.length === 21)
-      rando.push('52772'); /* broccoli + pepper */
+    if (pairID[15] === '53067') rando.push('53067', '52830', '52941', '52867');
+    if (pairID[49] === '53078') rando.push('53078', '52941', '52867');
+    if (pairID[47] === '53048') rando.push('53048');
+    if (pairID[20] === '53085' && pairID.length === 21) rando.push('52772');
     if (pairID[61] === '53070' && pairID[62] === '53070')
-      rando.push('53036', '52971', '52941', '52867'); /* potatoes + pepper */
+      rando.push('53036', '52971', '52941', '52867');
     for (let i = 0; i < pairID.length - 1; i++) {
       if (pairID[i] === pairID[i + 1]) rando.push(pairID[i]);
     }
@@ -279,10 +296,12 @@ async function pullMeals(): Promise<void> {
     }
     const recipeRandom = Math.floor(Math.random() * rando.length);
     const recipeOfChoice = await fetchTestMeal(rando[recipeRandom]);
+    const mealThumb = await fetchMealPhoto(rando[recipeRandom]);
     mealTextSource = recipeOfChoice;
     $recipeTitle.innerText = mealTextSource.strMeal;
     $recipeIngredients.innerText = translateIngredients(mealTextSource);
     $recipeInstructions.innerText = mealTextSource.strInstructions;
+    $recipeThumb.src = mealThumb;
     showButton($saveButton);
     showButton($cancelButton);
     fillButton($saveButton);
@@ -317,15 +336,16 @@ $saveButton.addEventListener('click', () => {
   if ($saveButton.classList.contains('full')) return;
   const imgOne: string = fetchPhoto(blockade[0]);
   const imgTwo: string = fetchPhoto(blockade[2]);
+  const imgThree: string = $recipeThumb.src;
   const entry: Re = {
     title: $recipeTitle.innerText,
     ingredients: $recipeIngredients.innerText,
     ingredientImage: [imgOne, imgTwo],
     instructions: $recipeInstructions.innerText,
-    EntryId: data.nextEntryId,
   };
   if (data.entries.length < 10) {
     data.entries.push(entry);
+    data.thumbnails.push(imgThree);
     writeData();
   }
   fillFeed();

@@ -92,27 +92,29 @@ function readData() {
   } else {
     data = {
       entries: [],
-      nextEntryId: 1,
+      thumbnails: [],
     };
   }
   return data;
 }
-function flush(ri, nu, mi, button) {
-  ri.classList.add('seen');
+function flush(rec, num, di, button) {
+  rec.classList.add('seen');
   button.classList.remove('hidden');
-  ri.children[0].innerHTML = data.entries[nu].title;
-  const imgOneAndTwo = document.querySelectorAll(`.recipe-${nu + 1} img`);
+  rec.children[0].innerHTML = data.entries[num].title;
+  const imgOneAndTwo = document.querySelectorAll(`.recipe-${num + 1} img`);
   const imgOne = imgOneAndTwo[0];
   const imgTwo = imgOneAndTwo[1];
-  imgOne.src = data.entries[nu].ingredientImage[0];
-  imgTwo.src = data.entries[nu].ingredientImage[1];
-  ri.children[1].classList.remove('hidden');
-  ri.children[2].innerHTML = data.entries[nu].ingredients;
-  ri.children[3].innerHTML = data.entries[nu].instructions;
-  mi.children[0].innerHTML = ri.children[0].innerHTML;
-  mi.children[1].innerHTML = ri.children[2].innerHTML;
-  mi.children[2].innerHTML = ri.children[3].innerHTML;
-  return ri;
+  const imgThree = imgOneAndTwo[2];
+  imgOne.src = data.entries[num].ingredientImage[0];
+  imgTwo.src = data.entries[num].ingredientImage[1];
+  imgThree.src = data.thumbnails[num];
+  rec.children[1].classList.remove('hidden');
+  rec.children[2].innerHTML = data.entries[num].ingredients;
+  rec.children[3].innerHTML = data.entries[num].instructions;
+  di.children[0].innerHTML = rec.children[0].innerHTML;
+  di.children[1].innerHTML = rec.children[2].innerHTML;
+  di.children[2].innerHTML = rec.children[3].innerHTML;
+  return rec;
 }
 function fillFeed() {
   const divList = [
@@ -156,54 +158,6 @@ function fillFeed() {
   }
 }
 fillFeed();
-async function fetchbroccoli() {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=broccoli',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchpotatoes() {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=potatoes',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchredPepper() {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=red_pepper',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchblackBeans() {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=black_beans',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
 async function fetchTestMeal(id) {
   try {
     const response = await fetch(
@@ -276,9 +230,7 @@ async function fetchIngredient(id) {
 }
 function deleteRecipe(number) {
   data.entries.splice(number, 1);
-  console.log(data.entries);
   writeData();
-  console.log(data.entries.length);
   fillFeed();
   location.reload();
 }
@@ -363,8 +315,4 @@ $modalDelete10.addEventListener('click', () => {
   if (data.entries.length < 10) $delete10.classList.add('hidden');
 });
 fetchIngredient('potatoes');
-fetchbroccoli();
-fetchpotatoes();
-fetchredPepper();
-fetchblackBeans();
 fetchTestMeal('53000');

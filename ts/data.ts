@@ -51,12 +51,11 @@ interface Re {
   ingredients: string;
   ingredientImage: string[];
   instructions: string;
-  EntryId: number;
 }
 
 interface Data {
   entries: Re[];
-  nextEntryId: number;
+  thumbnails: string[];
 }
 
 const dataKey = 'front-end-project-data';
@@ -175,35 +174,37 @@ function readData(): Data {
   } else {
     data = {
       entries: [],
-      nextEntryId: 1,
+      thumbnails: [],
     };
   }
   return data;
 }
 
 function flush(
-  ri: HTMLDivElement,
-  nu: number,
-  mi: HTMLDialogElement,
+  rec: HTMLDivElement,
+  num: number,
+  di: HTMLDialogElement,
   button: HTMLButtonElement,
 ): HTMLDivElement {
-  ri.classList.add('seen');
+  rec.classList.add('seen');
   button.classList.remove('hidden');
-  ri.children[0].innerHTML = data.entries[nu].title;
+  rec.children[0].innerHTML = data.entries[num].title;
   const imgOneAndTwo: NodeList = document.querySelectorAll(
-    `.recipe-${nu + 1} img`,
+    `.recipe-${num + 1} img`,
   );
   const imgOne: HTMLImageElement = imgOneAndTwo[0] as HTMLImageElement;
   const imgTwo: HTMLImageElement = imgOneAndTwo[1] as HTMLImageElement;
-  imgOne.src = data.entries[nu].ingredientImage[0];
-  imgTwo.src = data.entries[nu].ingredientImage[1];
-  ri.children[1].classList.remove('hidden');
-  ri.children[2].innerHTML = data.entries[nu].ingredients;
-  ri.children[3].innerHTML = data.entries[nu].instructions;
-  mi.children[0].innerHTML = ri.children[0].innerHTML;
-  mi.children[1].innerHTML = ri.children[2].innerHTML;
-  mi.children[2].innerHTML = ri.children[3].innerHTML;
-  return ri;
+  const imgThree: HTMLImageElement = imgOneAndTwo[2] as HTMLImageElement;
+  imgOne.src = data.entries[num].ingredientImage[0];
+  imgTwo.src = data.entries[num].ingredientImage[1];
+  imgThree.src = data.thumbnails[num];
+  rec.children[1].classList.remove('hidden');
+  rec.children[2].innerHTML = data.entries[num].ingredients;
+  rec.children[3].innerHTML = data.entries[num].instructions;
+  di.children[0].innerHTML = rec.children[0].innerHTML;
+  di.children[1].innerHTML = rec.children[2].innerHTML;
+  di.children[2].innerHTML = rec.children[3].innerHTML;
+  return rec;
 }
 
 function fillFeed(): void {
@@ -250,54 +251,6 @@ function fillFeed(): void {
 
 fillFeed();
 
-async function fetchbroccoli(): Promise<void> {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=broccoli',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchpotatoes(): Promise<void> {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=potatoes',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchredPepper(): Promise<void> {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=red_pepper',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
-async function fetchblackBeans(): Promise<void> {
-  try {
-    const response = await fetch(
-      'https://www.themealdb.com/api/json/v1/1/filter.php?i=black_beans',
-    );
-    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-    const meal = await response.json();
-    return meal;
-  } catch (error) {
-    console.error('Error: ', error);
-  }
-}
 async function fetchTestMeal(id: string): Promise<Meal> {
   try {
     const response = await fetch(
@@ -371,9 +324,7 @@ async function fetchIngredient(id: string): Promise<void> {
 
 function deleteRecipe(number: number): void {
   data.entries.splice(number, 1);
-  console.log(data.entries);
   writeData();
-  console.log(data.entries.length);
   fillFeed();
   location.reload();
 }
@@ -479,8 +430,4 @@ $modalDelete10.addEventListener('click', () => {
 });
 
 fetchIngredient('potatoes');
-fetchbroccoli();
-fetchpotatoes();
-fetchredPepper();
-fetchblackBeans();
 fetchTestMeal('53000');
