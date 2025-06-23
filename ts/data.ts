@@ -197,7 +197,7 @@ function flush(
   const imgThree: HTMLImageElement = imgOneAndTwo[2] as HTMLImageElement;
   imgOne.src = data.entries[num].ingredientImage[0];
   imgTwo.src = data.entries[num].ingredientImage[1];
-  imgThree.src = data.thumbnails[num];
+  if (data.thumbnails.length > 0) imgThree.src = data.thumbnails[num];
   rec.children[1].classList.remove('hidden');
   rec.children[2].innerHTML = data.entries[num].ingredients;
   rec.children[3].innerHTML = data.entries[num].instructions;
